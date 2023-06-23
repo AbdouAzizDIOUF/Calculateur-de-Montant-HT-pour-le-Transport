@@ -22,10 +22,10 @@ et des taxes définies dans un autre fichier XML (conditiontaxation.xml).
    ```
 2. Accédez au dossier du projet :
    ```bash
-   cd yourprojectname
+   cd Calculateur-de-Montant-HT-pour-le-Transport
    ```
    
-3. Exécuter le projet via Maven: :
+3. Exécuter le projet via Maven: 
    ```bash
    mvn spring-boot:run
    ```
