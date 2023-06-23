@@ -18,7 +18,7 @@ et des taxes définies dans un autre fichier XML (conditiontaxation.xml).
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/yourusername/yourprojectname.git
+   git clone  https://github.com/AbdouAzizDIOUF/Calculateur-de-Montant-HT-pour-le-Transport.git
    ```
 2. Accédez au dossier du projet :
    ```bash
@@ -53,6 +53,3 @@ Voici une explication des différents paramètres que vous pouvez modifier :
 
 Les Pull Requests sont les bienvenues. Pour les modifications majeures, veuillez ouvrir d'abord une issue pour discuter de ce que vous aimeriez changer.
 
-## Licence
-
-[MIT](https://choosealicense.com/licenses/mit/)
