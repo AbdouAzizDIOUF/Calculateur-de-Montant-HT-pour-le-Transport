@@ -49,6 +49,15 @@ Voici une explication des différents paramètres que vous pouvez modifier :
 - `poids` : Poids total de l'expédition
 - `portPaye` : Indique si le transport est payé (true) ou non (false)
 
+Vous avez la possibilité voire les données de des fichiers xml via des appeles API REST.
+
+* 'http://localhost:8080/clients' : liste des clients du fichier 'client.xml'
+* 'http://localhost:8080/tarifs' :  Liste des tarifs du fichier 'tarif.xml'
+* 'http://localhost:8080/localites' : liste des localites du fichier 'localite.xml'
+* 'http://localhost:8080/ctaxtations' : liste des conditionTaxtations du fichier 'conditionTaxtations.xml'
+
+
+
 ## Contribuer
 
 Les Pull Requests sont les bienvenues. Pour les modifications majeures, veuillez ouvrir d'abord une issue pour discuter de ce que vous aimeriez changer.

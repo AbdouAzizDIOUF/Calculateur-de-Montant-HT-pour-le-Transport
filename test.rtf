@@ -1,0 +1,119 @@
+Objectif: Calcul du montant HT d’un transport
+
+
+Ce que doit permettre de faire le programme:
+
+	- Sélectionner un expéditeur et un destinataire (issus du fichier client.xml)
+
+	- Saisir le nombre de colis et le poids de l’expédition.
+
+	- Sélectionner qui de l’expéditeur ou du destinataire règle le transport (port payé ou port du respectivement)
+
+	- Présenter le détail du calcul (montant ht tarif (issu de tarif.xml) + taxe à appliquer (issue de conditiontaxation.xml))
+
+
+Quelles règles/explications:
+
+	- La détermination du tarif dépend de la ville du destinataire qui permet de déterminer dans quelle zone (zone 1, 2 ou 3) se situe cette localité. Par exemple, la ville de MACON située dans le département 71 est classée en zone 1.
+
+	- Si un tarif n’existe pas dans la zone déterminée, alors on utilise le tarif de la zone z-1. Par exemple, si pas de tarif sur la zone 2 alors on utilise le tarif de la zone 1. 
+
+	- Si le client ne  ossède pas de tarif pour ce département, alors on utilise le tarif général ou un tarif hérité (voir plus bas)
+
+	- La détermination du montant de la taxe à appliquer (issue des conditions de taxation) dépend de qui paie le transport (expéditeur ou destinataire).
+
+	- Si un client ne possède pas de condition de taxation, alors on utilise les conditions de taxation générales.
+
+	- Arbitrairement choisi, l’idClient égal à 0 correspond au client « général » qui fournit les tarifs/conditions de taxation à utiliser en cas d’absence pour les clients existants..
+
+
+Les fichiers de données:
+
+
+Les fichiers sont issus de flux récupérés à partir du résultat de requêtes à notre application métier. 
+
+Toutes les balises n’étant pas essentielles, vous trouverez ci-dessous les balises dont vous avez besoin (avec quelques explications complémentaires).
+
+
+Le flux client.xml contient quelques clients.
+
+	Un objet client possède les champs suivants:
+
+		idClient	(sert à rechercher les tarifs et les conditions de taxation)
+
+		raisonSociale
+		
+		codePostal	(code département pour simplifier)
+
+		ville
+
+
+Le flux localite.xml contient un extrait de la table des localités.
+
+	Un objet localité comporte plusieurs champs
+		
+		codePostal (code département)
+		
+		ville
+		
+		zone	(valeur possible 1 ou 2 servant à calculer le montant ht)
+
+
+Le flux conditiontaxation.xml contient la définition des taxes à appliquer.
+
+	Une objet conditiontaxation comporte plusieurs champs:
+
+		idclient
+
+		useTaxePortDuGenerale
+
+		taxePortDu
+
+		useTaxePortPayeGenerale
+		
+		taxePortPaye
+
+	Un idClient égal à 0 correspond à une condition de taxation « générale ». Sinon, la conditiontaxation est liée au client défini dans idClient.
+
+	Si conditiontaxation.useTaxePortDuGenerale est égale à true pour un client donné, cela signifie qu’il convient d’utiliser la valeur taxePortDu que l’on trouve dans la condition de taxation « générale ».
+
+	Si conditiontaxation.useTaxePortPayeGenerale est égale à true pour un client donné, cela signifie qu’il convient d’utiliser la valeur taxePortPaye que l’on trouve dans la condition de taxation « générale ».
+
+
+Le flux tarif.xml contient la définition des tarifs
+
+	Un objet tarif comporte plusieurs champs:
+
+		idClient
+
+		idClientHeritage
+
+		codeDepartement
+
+		zone
+
+		montant
+
+	Un tarif avec un idClient égal à 0 correspond à un tarif « général » sinon le tarif est lié au client identifié dans idClient.
+
+	Si idClientHeritage est « not null », alors il convient d’utiliser le tarif du client identifié par idClientHeritage pour ce département.
+
+	Ainsi, si pour le client identifié par idClient = 2 on constate que idClientHeritage est égal à 3, alors le tarif à aller récupérer correspond au tarif qui serait appliqué si le client 3 était le client réglant le coût du transport (on utilise un mécanisme d’héritage du tarif)
+
+
+Commentez un peu les sources (cela simplifie la compréhension).
+
+Si vous avez des questions, ne pas hésiter à les poser…
+
+
+
+
+
+
+
+
+
+
+
+
+

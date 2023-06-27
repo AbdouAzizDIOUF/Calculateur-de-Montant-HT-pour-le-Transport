@@ -26,7 +26,11 @@ public class DataLoaderService {
     private final String TARIFS_FILE_PATH = "src/main/resources/static/tarif.xml";
 
 
-
+    /**
+     * Lecture des données du fichiers client.xml et les charger dans une liste
+     *
+     * @return
+     */
     public List<Client> loadClients() {
         List<Client> clients = new ArrayList<>();
 
@@ -57,6 +61,11 @@ public class DataLoaderService {
     }
 
 
+    /**
+     * Lecture des données du fichiers localite.xml et les charger dans une liste
+     *
+     * @return
+     */
     public List<Localite> loadLocalites() {
         List<Localite> localites = new ArrayList<>();
 
@@ -87,6 +96,11 @@ public class DataLoaderService {
     }
 
 
+    /**
+     * Lecture des données du fichiers conditionTaxation.xml et les charger dans une liste
+     *
+     * @return
+     */
     public List<ConditionTaxation> loadConditionsTaxations() {
         List<ConditionTaxation> conditionsTaxations = new ArrayList<>();
 
@@ -129,6 +143,11 @@ public class DataLoaderService {
         return conditionsTaxations;
     }
 
+    /**
+     * Lecture des données du fichiers tarif.xml et les charger dans une liste
+     *
+     * @return
+     */
     public List<Tarif> loadTarifs() {
         List<Tarif> tarifs = new ArrayList<>();
 
@@ -141,7 +160,6 @@ public class DataLoaderService {
             NodeList tarifList = document.getElementsByTagName("ObjectTarif");
 
             for (int i = 0; i < tarifList.getLength(); i++) {
-
                 Tarif tarif = new Tarif();
                 Element tarifElement = (Element) tarifList.item(i);
 

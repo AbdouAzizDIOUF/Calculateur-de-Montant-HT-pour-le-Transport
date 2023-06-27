@@ -5,7 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -15,9 +18,19 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @ToString
-public class ResultCalcul {
+@Entity
+public class ResultCalcul implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private BigDecimal montantHTTarif;
     private BigDecimal taxeAAppliquer;
     private BigDecimal montantHTTotal;
+
+    private int idExpediteur;
+
+    private int idDestinataire;
+
+    private Date dateCreation;
 }

@@ -1,9 +1,12 @@
 package com.example.transportv2.service;
 
 import com.example.transportv2.entity.*;
+import com.example.transportv2.repository.ResultCalculRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +15,9 @@ import java.util.List;
 @Service
 public class TransportCalculator {
     private final DataLoaderService dataLoaderService;
+
+    @Autowired
+    private ResultCalculRepository resultCalculRepository;
 
     public TransportCalculator(DataLoaderService dataLoaderService) {
         this.dataLoaderService = dataLoaderService;
@@ -85,12 +91,17 @@ public class TransportCalculator {
         resultCalcul.setTaxeAAppliquer(getTaxeToApply(conditionTaxation, portPaye, nombreColis, poids));
         resultCalcul.setMontantHTTotal(montantHT);
 
+        resultCalcul.setIdExpediteur(expId);
+        resultCalcul.setIdDestinataire(destId);
+        resultCalcul.setDateCreation(new Date());
+
+        this.resultCalculRepository.save(resultCalcul);
         return resultCalcul;
     }
 
 
     /**
-     * Return le client selon l'id
+     * Return le client selon son l'id
      *
      * @param clients
      * @param idClient
@@ -106,12 +117,19 @@ public class TransportCalculator {
     }
 
     /**
+     * Recupere la zone d'un localité
+     *
      * @param localites
      * @param codePostal
      * @return
      */
     private int findZoneByCodePostal(List<Localite> localites, String codePostal) {
         for (Localite localite : localites) {
+            System.out.println("--------------------------------");
+            System.out.println("code post: "+codePostal);
+            System.out.println("localite : "+localite.toString());
+            System.out.println("--------------------------------");
+
             if (localite.getCodePostal().equals(codePostal)) {
                 return localite.getZone();
             }
@@ -121,6 +139,7 @@ public class TransportCalculator {
 
 
     /**
+     * Reucupere le tarif du client
      *
      * @param tarifs
      * @param idClient
