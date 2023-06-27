@@ -29,6 +29,6 @@ public class Transportv2Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         BigDecimal poid = BigDecimal.valueOf(5);
-        this.transportCalculator.calculateTransportCost(1, 2, 5, poid, true);
+        //this.transportCalculator.calculateTransportCost(1, 2, 5, poid, true);
     }
 }
